@@ -7,27 +7,7 @@ Also validates the CVC and the expiration date.
 
 ## Installation
 
-Require the package in `composer.json`
-
-```json
-"require": {
-    "inacho/php-credit-card-validator": "1.*"
-},
-```
-
-If you are using Laravel, add an alias in `config/app.php`
-
-```php
-'aliases' => array(
-
-    'App'             => 'Illuminate\Support\Facades\App',
-    ...
-    'View'            => 'Illuminate\Support\Facades\View',
-
-    'CreditCard'      => 'Inacho\CreditCard',
-
-),
-```
+Import the src inside your php autoload.
 
 ## Usage
 
