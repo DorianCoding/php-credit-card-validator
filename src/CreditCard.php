@@ -4,12 +4,11 @@
  * Validates popular debit and credit cards numbers against regular expressions and Luhn algorithm.
  * Also validates the CVC and the expiration date.
  *
- * @author    Ignacio de Tomás <nacho@inacho.es>
+ * @author    Ignacio de Tomás <nacho@inacho.es> & 2023 DorianCoding (https://github.com/DorianCoding/php-credit-card-validator/)
  * @copyright 2014 Ignacio de Tomás (http://inacho.es)
  */
 
-namespace Inacho;
-
+namespace CVC;
 class CreditCard
 {
     protected static $cards = array(
@@ -131,11 +130,11 @@ class CreditCard
     {
         $month = str_pad($month, 2, '0', STR_PAD_LEFT);
 
-        if (! preg_match('/^20\d\d$/', $year)) {
+        if (!preg_match('/^20\d\d$/', $year)) {
             return false;
         }
 
-        if (! preg_match('/^(0[1-9]|1[0-2])$/', $month)) {
+        if (!preg_match('/^(0[1-9]|1[0-2])$/', $month)) {
             return false;
         }
 
@@ -195,7 +194,7 @@ class CreditCard
 
     protected static function validLuhn($number, $type)
     {
-        if (! self::$cards[$type]['luhn']) {
+        if (!self::$cards[$type]['luhn']) {
             return true;
         } else {
             return self::luhnCheck($number);
@@ -205,17 +204,17 @@ class CreditCard
     protected static function luhnCheck($number)
     {
         $checksum = 0;
-        for ($i=(2-(strlen($number) % 2)); $i<=strlen($number); $i+=2) {
-            $checksum += (int) ($number{$i-1});
+        for ($i = (2 - (strlen($number) % 2)); $i <= strlen($number); $i += 2) {
+            $checksum += (int) ($number[$i - 1]);
         }
 
         // Analyze odd digits in even length strings or even digits in odd length strings.
-        for ($i=(strlen($number)% 2) + 1; $i<strlen($number); $i+=2) {
-            $digit = (int) ($number{$i-1}) * 2;
+        for ($i = (strlen($number) % 2) + 1; $i < strlen($number); $i += 2) {
+            $digit = (int) ($number[$i-1]) * 2;
             if ($digit < 10) {
                 $checksum += $digit;
             } else {
-                $checksum += ($digit-9);
+                $checksum += ($digit - 9);
             }
         }
 
